@@ -73,8 +73,10 @@ public class AlienHover : MonoBehaviour
         for (int i = 0; i < hoverPoints.Length; i++)
         {
             var hoverPoint = hoverPoints[i];
-            if(Physics.Raycast(hoverPoint.transform.position, -Vector3.up, out hit, hoverHeight, layerMask))
+            Debug.DrawRay(hoverPoint.transform.position, -Vector3.up, Color.red);
+            if (Physics.Raycast(hoverPoint.transform.position, -Vector3.up, out hit, hoverHeight, layerMask))
             {
+                
                 rb.AddForceAtPosition(Vector3.up * hoverForce * (1.0f - (hit.distance / hoverHeight)), hoverPoint.transform.position);
             }
             else
@@ -87,7 +89,7 @@ public class AlienHover : MonoBehaviour
                 {
                     rb.AddForceAtPosition(hoverPoint.transform.up * -hoverForce, hoverPoint.transform.position);
                 }
-
+                
 
             }
         }

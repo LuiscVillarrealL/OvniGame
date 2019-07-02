@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AlienHover.cs" />
+    <Compile Include="Assets\Scripts\BeamUp.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
     <None Include="Assets\Materials\Vidrio.shader" />
     <Reference Include="Unity.Timeline.Editor">
