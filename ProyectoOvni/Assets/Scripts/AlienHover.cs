@@ -6,6 +6,8 @@ public class AlienHover : MonoBehaviour
 {
     private Rigidbody rb;
 
+    [SerializeField] BeamUp beam;
+
     [SerializeField] float deadZone = 0.1f;
 
     [SerializeField] float forwardAcc = 100.0f;
@@ -44,14 +46,20 @@ public class AlienHover : MonoBehaviour
         curr_Thrust = 0.0f;
 
         float aclAxis = Input.GetAxis("Vertical");
+        //Si no esta usando el rayo
+        if (!beam.beamOn)
+        {
+            if (aclAxis > deadZone)
+            {
+                curr_Thrust = aclAxis * forwardAcc;
+            }
+            else if (aclAxis < -deadZone)
+            {
+                curr_Thrust = aclAxis * backwardAcc;
+            }
 
-        if(aclAxis > deadZone)
-        {
-            curr_Thrust = aclAxis * forwardAcc;
-        }else if(aclAxis < -deadZone)
-        {
-            curr_Thrust = aclAxis * backwardAcc;
         }
+        
 
 
         //Giro
