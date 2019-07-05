@@ -14,9 +14,12 @@ public class BeamUp : MonoBehaviour
     public bool vacaAbajo = false;
     public bool beamOn = false;
 
+    
+
     public float timer = 4f;
 
     public GameObject vacaActual = null;
+    private Transform vacaActualTrans = null;
     public Rigidbody vacaActualRB = null;
 
 
@@ -40,10 +43,11 @@ public class BeamUp : MonoBehaviour
             particulas.Play();
 
             beamOn = true;
+            vacaActualTrans = vacaActual.transform;
 
 
 
-            
+
         }
 
         if (Input.GetButtonUp("Jump"))
@@ -63,16 +67,28 @@ public class BeamUp : MonoBehaviour
         if (vacaAbajo)
         {
 
-            vacaActualRB = vacaActual.GetComponent<Rigidbody>();
+            
 
             if (beamOn)
             {
+                //var tamano = vacaActual.transform.localScale;
+
+
+                vacaActualRB = vacaActual.GetComponent<Rigidbody>();
+
                 print(vacaActual);
 
                 if (timer <= 0)
                 {
                     vacaActualRB.useGravity = false;
+
+                    if (vacaActual.transform.localScale.x >= 0f)
+                    {
+                        vacaActual.transform.localScale -= new Vector3(0.005F, 0.005f, 0.005f);
+                    }
+                    
                     beamPull();
+
                 }
                 else
                 {
@@ -85,9 +101,21 @@ public class BeamUp : MonoBehaviour
 
             if (!beamOn && !vacaActualRB.useGravity)
             {
-                
+
                 vacaActualRB.useGravity = true;
+                vacaActualTrans = null;
+
+
             }
+            else if (!beamOn && vacaActual.transform.localScale.x < vacaActual.transform.localScale.x)
+            {
+                vacaActual.transform.localScale += new Vector3(0.05F, 0.05f, 0.05f);
+            }
+
+            
+            
+
+
         }
 
 
@@ -101,11 +129,16 @@ public class BeamUp : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        vacaAbajo = true;
+        if (other.gameObject.GetComponent<Vaca>())
+        {
+            vacaAbajo = true;
 
-        print(other + " trigger");
+            print(other + " trigger");
 
-        vacaActual = other.gameObject;
+            vacaActual = other.gameObject;
+        }
+
+        
 
         
         
@@ -114,10 +147,15 @@ public class BeamUp : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        vacaAbajo = false;
-        print(other + " trigger out");
 
-        vacaActual = null;
+        if (other.gameObject.GetComponent<Vaca>())
+        {
+            vacaAbajo = false;
+            print(other + " trigger out");
+
+            vacaActual = null;
+        }
+        
     }
 
     private void beamPull()

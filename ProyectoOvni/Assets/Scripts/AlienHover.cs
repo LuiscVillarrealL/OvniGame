@@ -46,7 +46,7 @@ public class AlienHover : MonoBehaviour
         curr_Thrust = 0.0f;
 
         float aclAxis = Input.GetAxis("Vertical");
-        //Si no esta usando el rayo
+        //Si no esta usando el rayo se puede mover
         if (!beam.beamOn)
         {
             if (aclAxis > deadZone)
@@ -59,6 +59,7 @@ public class AlienHover : MonoBehaviour
             }
 
         }
+
         
 
 
