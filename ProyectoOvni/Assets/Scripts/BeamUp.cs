@@ -6,6 +6,7 @@ public class BeamUp : MonoBehaviour
 {
 
     [SerializeField] ParticleSystem particulas;
+    [SerializeField] VacasUI vacasUI;
     //[SerializeField] GameObject cono;
 
     private Transform trans;
@@ -14,12 +15,14 @@ public class BeamUp : MonoBehaviour
     public bool vacaAbajo = false;
     public bool beamOn = false;
 
+    private Vaca vacaActualScript;
+
     
 
     public float timer = 4f;
 
     public GameObject vacaActual = null;
-    private Transform vacaActualTrans = null;
+    
     public Rigidbody vacaActualRB = null;
 
 
@@ -43,7 +46,7 @@ public class BeamUp : MonoBehaviour
             particulas.Play();
 
             beamOn = true;
-            vacaActualTrans = vacaActual.transform;
+           
 
 
 
@@ -77,6 +80,8 @@ public class BeamUp : MonoBehaviour
                 vacaActualRB = vacaActual.GetComponent<Rigidbody>();
 
                 print(vacaActual);
+                vacaActualScript.rayoOn = true;
+                
 
                 if (timer <= 0)
                 {
@@ -86,7 +91,13 @@ public class BeamUp : MonoBehaviour
                     {
                         vacaActual.transform.localScale -= new Vector3(0.005F, 0.005f, 0.005f);
                     }
-                    
+
+                    if (vacaActual.transform.localScale.x <= 0)
+                    {
+                        Destroy(vacaActual.gameObject);
+                        vacasUI.numDeVacas++;
+                    }
+
                     beamPull();
 
                 }
@@ -99,18 +110,15 @@ public class BeamUp : MonoBehaviour
 
             }
 
-            if (!beamOn && !vacaActualRB.useGravity)
+           if (!beamOn )
             {
 
-                vacaActualRB.useGravity = true;
-                vacaActualTrans = null;
+              // vacaActualRB.useGravity = true;
+                vacaActualScript.rayoOn = false;
 
 
             }
-            else if (!beamOn && vacaActual.transform.localScale.x < vacaActual.transform.localScale.x)
-            {
-                vacaActual.transform.localScale += new Vector3(0.05F, 0.05f, 0.05f);
-            }
+            
 
             
             
@@ -136,6 +144,7 @@ public class BeamUp : MonoBehaviour
             print(other + " trigger");
 
             vacaActual = other.gameObject;
+            vacaActualScript = other.gameObject.GetComponent<Vaca>();
         }
 
         
