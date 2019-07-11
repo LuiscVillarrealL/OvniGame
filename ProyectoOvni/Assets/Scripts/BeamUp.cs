@@ -10,6 +10,7 @@ public class BeamUp : MonoBehaviour
     //[SerializeField] GameObject cono;
 
     private Transform trans;
+    [SerializeField] float transformVacaSpeed = 0.005f;
     public float pullRadius = 2;
     public float pullForce = 1;
     public bool vacaAbajo = false;
@@ -89,7 +90,7 @@ public class BeamUp : MonoBehaviour
 
                     if (vacaActual.transform.localScale.x >= 0f)
                     {
-                        vacaActual.transform.localScale -= new Vector3(0.005F, 0.005f, 0.005f);
+                        vacaActual.transform.localScale -= new Vector3(transformVacaSpeed, transformVacaSpeed, transformVacaSpeed);
                     }
 
                     if (vacaActual.transform.localScale.x <= 0)

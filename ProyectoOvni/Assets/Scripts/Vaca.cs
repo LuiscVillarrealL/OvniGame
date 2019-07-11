@@ -7,6 +7,8 @@ public class Vaca : MonoBehaviour
 
     public bool areaDeRayo = false;
     public bool rayoOn = false;
+
+    [SerializeField] float transformSpeed = 0.005f;
     private Vector3 tamanoOriginal;
     private Rigidbody rb;
 
@@ -27,7 +29,7 @@ public class Vaca : MonoBehaviour
         if (transform.localScale.x < tamanoOriginal.x && !rayoOn || (transform.localScale.x < tamanoOriginal.x && !areaDeRayo))
         {
 
-            transform.localScale += new Vector3(0.005F, 0.005f, 0.005f);
+            transform.localScale += new Vector3(transformSpeed, transformSpeed, transformSpeed);
             rb.useGravity = true;
         }
 
