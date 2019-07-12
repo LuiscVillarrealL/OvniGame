@@ -77,8 +77,14 @@ public class BeamUp : MonoBehaviour
             {
                 //var tamano = vacaActual.transform.localScale;
 
+                if (vacaActual.GetComponent<Rigidbody>())
+                {
+                    vacaActualRB = vacaActual.GetComponent<Rigidbody>();
+                }
+                else
+                    vacaActualRB = null;
 
-                vacaActualRB = vacaActual.GetComponent<Rigidbody>();
+
 
                 print(vacaActual);
                 vacaActualScript.rayoOn = true;
@@ -96,6 +102,8 @@ public class BeamUp : MonoBehaviour
                     if (vacaActual.transform.localScale.x <= 0)
                     {
                         Destroy(vacaActual.gameObject);
+                        vacaAbajo = false;
+
                         vacasUI.numDeVacas++;
                     }
 

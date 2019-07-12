@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 600215468937694204}
   - component: {fileID: 3097345594233868168}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: q_auge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2769547952450599309}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6395667488184078714}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 4568244844954131683}
   - component: {fileID: 2307825962098577914}
   - component: {fileID: 4873091435439621120}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: q_koerper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 4873091433942439398}
   - component: {fileID: 4873091433942439417}
   - component: {fileID: 4873091433942439397}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ Transform:
   m_GameObject: {fileID: 3495180069559542088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.8183536, y: 3.6, z: -4.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 21.815294, y: 21.815294, z: 21.815294}
   m_Children:
   - {fileID: 4212005569368283349}
   - {fileID: 600215468937694204}
@@ -344,6 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   areaDeRayo: 0
   rayoOn: 0
+  transformSpeed: 0.1
 --- !u!1 &4498811547865182405
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6753160919038385720}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +385,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3149278011829891689}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4212005569368283349}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 372429472338151631}
   - component: {fileID: 3232026330949268583}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: q_euter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

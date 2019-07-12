@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\AlienHover.cs" />
     <Compile Include="Assets\Scripts\BeamUp.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\EnemyPatrol.cs" />
     <Compile Include="Assets\Scripts\RecogerVacas.cs" />
     <Compile Include="Assets\Scripts\Vaca.cs" />
     <Compile Include="Assets\Scripts\VacasUI.cs" />

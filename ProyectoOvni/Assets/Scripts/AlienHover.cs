@@ -19,7 +19,7 @@ public class AlienHover : MonoBehaviour
                      float curr_Turn = 0f;
 
 
-    int layerMask;
+   int layerMask;
 
     [SerializeField] float hoverForce = 0f;
     [SerializeField] float hoverHeight = 0f;
@@ -34,7 +34,7 @@ public class AlienHover : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        layerMask = 1 << LayerMask.NameToLayer("Player");
+        layerMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Cow") | 1 << LayerMask.NameToLayer("Beam");
         layerMask = ~layerMask;
     }
 
@@ -75,6 +75,9 @@ public class AlienHover : MonoBehaviour
 
      void FixedUpdate()
     {
+
+        /*var layerMask = (1 << 8 | 1 << 9 | 1 << 10 );
+        layerMask = ~layerMask;*/
 
         //hover
 
