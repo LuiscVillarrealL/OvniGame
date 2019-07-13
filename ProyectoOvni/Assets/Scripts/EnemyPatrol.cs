@@ -11,6 +11,8 @@ public class EnemyPatrol : MonoBehaviour
     public float startWaitTime;
     private Quaternion rotation;
 
+    public bool alienInView;
+
 
     private void Start()
     {
@@ -22,8 +24,22 @@ public class EnemyPatrol : MonoBehaviour
     {
         //rotation = Quaternion.LookRotation(moveSpots[randomSpot].position);
 
-       // transform.rotation = rotation;
-        transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
+        // transform.rotation = rotation;
+
+        // transform.LookAt(moveSpots[randomSpot].position);
+
+
+        
+
+        if (moveSpots[randomSpot].position != Vector3.zero)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
+            var q = Quaternion.LookRotation(moveSpots[randomSpot].position - transform.position);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
+        }
+        
+
+        
 
         if (Vector3.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
         {
@@ -37,6 +53,18 @@ public class EnemyPatrol : MonoBehaviour
                 waitTime -= Time.deltaTime;
             }
         }
+        else
+        {
+
+
+
+        }
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        print("tanque toco = " + other.gameObject);
     }
 
 
