@@ -34,7 +34,7 @@ public class AlienHover : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        layerMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Cow") | 1 << LayerMask.NameToLayer("Beam");
+        layerMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Cow") | 1 << LayerMask.NameToLayer("Beam") | 1 << LayerMask.NameToLayer("AreaDeDisparo");
         layerMask = ~layerMask;
     }
 

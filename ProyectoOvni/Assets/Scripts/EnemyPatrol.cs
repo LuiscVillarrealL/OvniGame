@@ -11,7 +11,10 @@ public class EnemyPatrol : MonoBehaviour
     public float startWaitTime;
     private Quaternion rotation;
 
+  
+
     public bool alienInView;
+    public GameObject player;
 
 
     private void Start()
@@ -29,17 +32,31 @@ public class EnemyPatrol : MonoBehaviour
         // transform.LookAt(moveSpots[randomSpot].position);
 
 
-        
 
-        if (moveSpots[randomSpot].position != Vector3.zero)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
-            var q = Quaternion.LookRotation(moveSpots[randomSpot].position - transform.position);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
-        }
-        
 
-        
+
+        /*
+
+
+     if (alienInView)
+     {
+         var q = Quaternion.LookRotation(player.transform.position - transform.position);
+         transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
+         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+     }
+     else
+     {
+         var q = Quaternion.LookRotation(moveSpots[randomSpot].position - transform.position);
+         transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
+         transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
+     }
+
+     */
+        var q = Quaternion.LookRotation(moveSpots[randomSpot].position - transform.position);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
+
+
 
         if (Vector3.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
         {
@@ -64,7 +81,22 @@ public class EnemyPatrol : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("tanque toco = " + other.gameObject);
+
+        print(other);
+
+        if (other.gameObject.GetComponentInParent<AlienHover>())
+        {
+            alienInView = true;
+        }
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponentInParent<AlienHover>())
+        {
+            alienInView = false;
+        }
     }
 
 
