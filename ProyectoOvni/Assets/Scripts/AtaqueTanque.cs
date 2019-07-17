@@ -5,12 +5,11 @@ using UnityEngine;
 public class AtaqueTanque : MonoBehaviour
 {
 
-    public float fieldOfViewAngle = 110;
-    public bool palyerInView;
-    public Vector3 ultimaVistaDelPlayer;
+   
 
     private GameObject player;
-    private Vector3 vistaDelPlayerAnterior;
+    
+
 
 
     // Start is called before the first frame update

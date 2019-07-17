@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,15 @@ public class EnemyPatrol : MonoBehaviour
     private float waitTime;
     public float startWaitTime;
     private Quaternion rotation;
+    public int counterPos = 0;
 
-  
+    public float fireRate = 1f;
+    public float fireCountdown = 1f;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+
+
+
 
     public bool alienInView;
     public GameObject player;
@@ -20,7 +28,8 @@ public class EnemyPatrol : MonoBehaviour
     private void Start()
     {
         waitTime = startWaitTime;
-        randomSpot = Random.Range(0, moveSpots.Length);
+        counterPos = 0;
+       // randomSpot = Random.Range(0, moveSpots.Length);
     }
 
     private void Update()
@@ -52,37 +61,66 @@ public class EnemyPatrol : MonoBehaviour
      }
 
      */
-        var q = Quaternion.LookRotation(moveSpots[randomSpot].position - transform.position);
+
+         if (!alienInView)
+         {
+             var q = Quaternion.LookRotation(moveSpots[counterPos].position - transform.position);
+             transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
+
+
+             transform.position = Vector3.MoveTowards(transform.position, moveSpots[counterPos].position, speed * Time.deltaTime);
+
+           
+
+             if (Vector3.Distance(transform.position, moveSpots[counterPos].position) < 0.2f)
+             {
+                 counterPos++;
+                 if (waitTime <= 0)
+                 {
+
+                     waitTime = startWaitTime;
+                 }
+                 else
+                 {
+                     waitTime -= Time.deltaTime;
+                 }
+
+                 if (counterPos >= moveSpots.Length)
+                 {
+                     counterPos = 0;
+                 }
+             }
+
+         }
+         else{
+             var q = Quaternion.LookRotation(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) - transform.position);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
-        transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
 
+           if (fireCountdown <= 0f)
+           {
+               Shoot();
+               fireCountdown = 1f / fireRate;
+           }
 
+           fireCountdown -= Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
-        {
-            if (waitTime <= 0)
-            {
-                randomSpot = Random.Range(0, moveSpots.Length);
-                waitTime = startWaitTime;
-            }
-            else
-            {
-                waitTime -= Time.deltaTime;
-            }
-        }
-        else
-        {
+         }
 
+   
 
+        
 
-        }
     }
 
+    private void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    }
 
     void OnTriggerEnter(Collider other)
     {
 
-        print(other);
+
 
         if (other.gameObject.GetComponentInParent<AlienHover>())
         {
