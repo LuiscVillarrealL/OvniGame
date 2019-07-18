@@ -18,6 +18,7 @@ public class EnemyPatrol : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
 
+    public float bulletSpeed = 50;
 
 
 
@@ -114,7 +115,14 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        var playerpos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity) as GameObject;
+        Bullet bScript = bullet.GetComponent<Bullet>();
+
+        bScript.playerPos = playerpos;
+      //  bRb.velocity();
+        
     }
 
     void OnTriggerEnter(Collider other)
