@@ -25,12 +25,18 @@ public class EnemyPatrol : MonoBehaviour
     public bool alienInView;
     public GameObject player;
 
+    public AudioClip motor;
+    public AudioClip disparo;
+
 
     private void Start()
     {
         waitTime = startWaitTime;
         counterPos = 0;
-       // randomSpot = Random.Range(0, moveSpots.Length);
+        // randomSpot = Random.Range(0, moveSpots.Length);
+        
+
+
     }
 
     private void Update()
@@ -41,7 +47,7 @@ public class EnemyPatrol : MonoBehaviour
 
         // transform.LookAt(moveSpots[randomSpot].position);
 
-
+        
 
 
 
@@ -63,7 +69,7 @@ public class EnemyPatrol : MonoBehaviour
 
      */
 
-         if (!alienInView)
+        if (!alienInView)
          {
              var q = Quaternion.LookRotation(moveSpots[counterPos].position - transform.position);
              transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
@@ -100,7 +106,8 @@ public class EnemyPatrol : MonoBehaviour
            if (fireCountdown <= 0f)
            {
                Shoot();
-               fireCountdown = 1f / fireRate;
+                PlayCLipDisparo(disparo);
+                fireCountdown = 1f / fireRate;
            }
 
            fireCountdown -= Time.deltaTime;
@@ -110,6 +117,55 @@ public class EnemyPatrol : MonoBehaviour
    
 
         
+
+    }
+
+
+    public void PlayCLipDisparo(AudioClip clip)
+    {
+        //  Create a temporary audio source object
+        GameObject tempAudioSource = new GameObject("TempAudio");
+
+        //  Add an audio source
+        AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();
+
+        //  Add the clip to the audio source
+        audioSource.clip = clip;
+
+        //  Set the volume
+        audioSource.volume = .8f;
+
+        //  Set properties so it's 2D sound
+        audioSource.spatialBlend = 0f;
+
+        //  Play the audio
+        audioSource.Play();
+
+        //  Set it to self destroy
+        Destroy(tempAudioSource, clip.length);
+
+    }
+
+    public void PlayCLipMotor(AudioClip clip)
+    {
+        //  Create a temporary audio source object
+        GameObject tempAudioSource = new GameObject("TempAudio");
+
+        //  Add an audio source
+        AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();
+
+        //  Add the clip to the audio source
+        audioSource.clip = clip;
+
+        //  Set the volume
+        audioSource.volume = .5f;
+
+        //  Set properties so it's 2D sound
+        audioSource.spatialBlend = 0f;
+
+        //  Play the audio
+        audioSource.Play();
+
 
     }
 

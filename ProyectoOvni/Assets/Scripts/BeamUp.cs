@@ -26,6 +26,8 @@ public class BeamUp : MonoBehaviour
     
     public Rigidbody vacaActualRB = null;
 
+    public AudioClip beamClip;
+
 
     // [SerializeField] GameObject collider;
 
@@ -47,7 +49,10 @@ public class BeamUp : MonoBehaviour
             particulas.Play();
 
             beamOn = true;
-           
+
+
+            
+            
 
 
 
@@ -60,6 +65,7 @@ public class BeamUp : MonoBehaviour
             particulas.Stop();
             beamOn = false;
             timer = 4f;
+            
         }
 
         
@@ -182,6 +188,7 @@ public class BeamUp : MonoBehaviour
         vacaActual.transform.position = Vector3.Lerp(vacaActual.transform.position, transform.position, step);
     }
 
+    
 
 
 

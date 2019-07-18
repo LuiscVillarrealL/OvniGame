@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class VacasUI : MonoBehaviour
 {
 
     public int numDeVacas;
 
-    [SerializeField] Image[] vacas;
+    [SerializeField] Text puntos;
 
     [SerializeField] Sprite vacaSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,14 +22,6 @@ public class VacasUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < vacas.Length; i++)
-        {
-            if (i < numDeVacas)
-            {
-                vacas[i].enabled = true;
-            }
-            else
-                vacas[i].enabled = false;
-        }
+        puntos.text = numDeVacas.ToString() + "/5";
     }
 }

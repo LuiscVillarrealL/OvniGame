@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AlienHover : MonoBehaviour
 {
@@ -25,6 +26,13 @@ public class AlienHover : MonoBehaviour
     [SerializeField] float hoverHeight = 0f;
     [SerializeField] GameObject[] hoverPoints;
 
+    [SerializeField] GameObject timerGO;
+    public float timer;
+
+    [SerializeField] GameManager gm;
+    [SerializeField] GameObject puntosGO;
+    public int puntos;
+
 
 
 
@@ -36,11 +44,16 @@ public class AlienHover : MonoBehaviour
 
         layerMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Cow") | 1 << LayerMask.NameToLayer("Beam") | 1 << LayerMask.NameToLayer("AreaDeDisparo");
         layerMask = ~layerMask;
+
+        timer = timerGO.GetComponent<Timer>().currentTime;
+        puntos = puntosGO.GetComponent<VacasUI>().numDeVacas;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        timer = timerGO.GetComponent<Timer>().currentTime;
 
         //Acceleracion
         curr_Thrust = 0.0f;
@@ -69,6 +82,8 @@ public class AlienHover : MonoBehaviour
 
         if (Mathf.Abs(turnAxis) > deadZone)
             curr_Turn = turnAxis;
+
+
 
     }
 
@@ -119,6 +134,41 @@ public class AlienHover : MonoBehaviour
         }else if(curr_Turn < 0)
         {
             rb.AddRelativeTorque(Vector3.up * curr_Turn * turnStrenght);
+        }
+
+        if(timer <= 0)
+        {
+            hoverHeight++;
+
+            if(hoverHeight > 500)
+            {
+                gm.GetComponent<GameManager>().LoadGameOver();
+            }
+        }
+
+        if (puntos >= 5)
+        {
+
+            hoverHeight++;
+
+            if (hoverHeight > 500)
+            {
+                gm.GetComponent<GameManager>().LoadWin();
+            }
+        }
+
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Bullet>())
+        {
+
+            if (beam.beamOn)
+            {
+                beam.beamOn = false;
+            }
         }
 
     }
